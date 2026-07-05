@@ -1,0 +1,105 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: MemberClicks
+providerId: memberclicks
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Membership Management
+- Association Management
+- AMS
+- Personify
+- Plans
+description: >-
+  MemberClicks does not price its API separately. The MC Professional API is
+  included with an MC Professional (or MC Trade) platform subscription, and
+  access is provisioned per organization via OAuth 2.0 client credentials rather
+  than by any usage tier. Platform subscriptions are quote-based, tailored to the
+  size and functional needs of the organization, and billed annually. Publicly
+  reported entry pricing is around $3,500/year, with implementation costs
+  reported from roughly $500 (small organizations) to $5,000+ (larger
+  organizations). MemberClicks does not offer a free trial or free version.
+notes: >-
+  There is no per-call or metered API pricing. Exact platform rates are
+  quote-based and are not reconciled here; request a quote from MemberClicks.
+sources:
+- https://memberclicks.com/membership-software-pricing/
+- https://memberclicks.com/ams-roadmap/how-much-does-association-management-software-cost/
+- https://help.memberclicks.com/hc/en-us/articles/18581108667021-API-Management
+plans:
+- id: mc-professional
+  name: MC Professional
+  type: subscription
+  description: >-
+    All-in-one association management platform for professional associations and
+    chambers - member database, dues/invoicing, events, email, groups, and
+    website - including the OAuth 2.0 MC Professional REST API at no separate
+    charge. Subscription is quote-based by organization size and billed annually.
+  entries:
+  - label: Platform Subscription
+    name: platform_subscription
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: quote-based, billed annually (reported from ~$3,500/year)
+    userMultiplied: false
+  elements:
+  - name: Member Database and Profiles
+  - name: Dues and Invoicing
+  - name: Event Registration
+  - name: Email and Communications
+  - name: Community Groups
+  - name: Website / CMS
+  - name: MC Professional REST API (OAuth 2.0)
+- id: mc-trade
+  name: MC Trade
+  type: subscription
+  description: >-
+    MemberClicks platform edition oriented to trade and member-based
+    organizations with additional relationship-management needs. Quote-based,
+    billed annually. API availability follows the platform edition.
+  entries:
+  - label: Platform Subscription
+    name: platform_subscription
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: quote-based, billed annually
+    userMultiplied: false
+  elements:
+  - name: Member and Relationship Management
+  - name: Dues and Invoicing
+  - name: Events
+  - name: Communications
+- id: implementation
+  name: Implementation and Onboarding
+  type: one-time
+  description: >-
+    One-time setup, data migration, and onboarding, scaled to organization size
+    and configuration complexity.
+  entries:
+  - label: Implementation Fee
+    name: implementation_fee
+    type: flat
+    metric: project
+    limit: 1
+    timeFrame: one-time
+    geo: global
+    unit: 1
+    price: reported ~$500 to $5,000+ by organization size
+    userMultiplied: false
+  elements:
+  - name: Data Migration
+  - name: Configuration
+  - name: Onboarding
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

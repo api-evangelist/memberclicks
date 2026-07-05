@@ -1,0 +1,60 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: MemberClicks
+providerId: memberclicks
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Membership Management
+- Association Management
+- AMS
+- Personify
+- Rate Limiting
+- Quotas
+description: >-
+  MemberClicks does not publish fixed numeric rate limits for the MC Professional
+  API in its public developer documentation. The API is a per-organization,
+  OAuth 2.0-protected REST interface, and access is tenant-scoped by client
+  credentials rather than by a documented per-minute request cap. The one
+  quantitative paging constraint that is documented is on list endpoints:
+  pageSize defaults to 10 and is capped at a maximum of 100 records per page
+  (with pageNumber defaulting to 1). Integrations should page through large
+  result sets and implement backoff on error responses.
+notes: >-
+  No per-account or per-endpoint numeric request-rate limit is documented as of
+  the review date. Verify any account-specific limits with MemberClicks /
+  Personify when provisioning API credentials.
+sources:
+- https://help.memberclicks.com/hc/en-us/articles/15442882637453-API-Overview
+- https://help.memberclicks.com/hc/en-us/articles/15442888723341-API-Resources-Continuing-Education
+- https://help.memberclicks.com/hc/en-us/articles/18581108667021-API-Management
+responseCodes:
+  throttled: 429
+limits:
+- name: API Requests
+  scope: organization
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate limit is documented for the MC Professional API.
+- name: List Page Size
+  scope: request
+  metric: records
+  limit: 100 max per page (default 10)
+  notes: Documented on paged list endpoints via the pageSize parameter; pageNumber defaults to 1.
+- name: OAuth Access Token
+  scope: client
+  metric: token
+  limit: expiring bearer token
+  notes: Tokens are obtained from /oauth/v1/token and expire; clients refresh as needed.
+policies:
+- name: Paging
+  description: List endpoints are paged with pageNumber (default 1) and pageSize (default 10, max 100); iterate pages to retrieve full result sets.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+- name: Tenant Isolation
+  description: Access is scoped to a single organization's data via per-organization OAuth client credentials on its own {orgId}.memberclicks.net host.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

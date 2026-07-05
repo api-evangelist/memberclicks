@@ -1,0 +1,179 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MemberClicks MC Professional API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "bearer",
+      "token": "{{accessToken}}"
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Authorization", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Obtain an access token", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://{orgId}.memberclicks.net/oauth/v1/token",
+            "headers": [
+              { "name": "Authorization", "value": "Basic {{clientCredentials}}" },
+              { "name": "Content-Type", "value": "application/x-www-form-urlencoded" }
+            ],
+            "body": { "type": "text", "data": "grant_type=client_credentials&scope=read%20write" }
+          },
+          "docs": "Exchanges Base64(clientId:clientSecret) client credentials for an OAuth 2.0 bearer access token."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Profiles", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List profiles", "type": "http" },
+          "http": { "method": "GET", "url": "https://{orgId}.memberclicks.net/api/v1/profile" },
+          "docs": "Returns a paged list of all profiles."
+        },
+        {
+          "info": { "name": "Retrieve a profile", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://{orgId}.memberclicks.net/api/v1/profile/:profileId",
+            "params": [
+              { "name": "profileId", "value": "", "type": "path", "description": "The ID of the profile." }
+            ]
+          },
+          "docs": "Returns a single profile by profileId."
+        },
+        {
+          "info": { "name": "Create a profile", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://{orgId}.memberclicks.net/api/v1/profile",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Creates a new profile. Requires the write scope."
+        },
+        {
+          "info": { "name": "Update a profile", "type": "http" },
+          "http": {
+            "method": "PUT",
+            "url": "https://{orgId}.memberclicks.net/api/v1/profile/:profileId",
+            "params": [
+              { "name": "profileId", "value": "", "type": "path", "description": "The ID of the profile." }
+            ],
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Updates an existing profile. Requires the write scope."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Profile Search", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Create a profile search", "type": "http" },
+          "http": {
+            "method": "POST",
+            "url": "https://{orgId}.memberclicks.net/api/v1/profile/search",
+            "body": { "type": "json", "data": "{}" }
+          },
+          "docs": "Creates a search over the membership database and returns matching profiles."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Attributes", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List attributes", "type": "http" },
+          "http": { "method": "GET", "url": "https://{orgId}.memberclicks.net/api/v1/attribute" },
+          "docs": "Lists the profile attributes (built-in and custom fields)."
+        },
+        {
+          "info": { "name": "List attribute selection options", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://{orgId}.memberclicks.net/api/v1/attribute/:attributeId/selection",
+            "params": [
+              { "name": "attributeId", "value": "", "type": "path", "description": "The ID of the attribute." }
+            ]
+          },
+          "docs": "Returns the selection-set options for a custom attribute."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Reference Data", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List member types", "type": "http" },
+          "http": { "method": "GET", "url": "https://{orgId}.memberclicks.net/api/v1/member-type" },
+          "docs": "Returns the organization's member types."
+        },
+        {
+          "info": { "name": "List member statuses", "type": "http" },
+          "http": { "method": "GET", "url": "https://{orgId}.memberclicks.net/api/v1/member-status" },
+          "docs": "Returns the organization's member statuses."
+        },
+        {
+          "info": { "name": "List countries (modeled)", "type": "http" },
+          "http": { "method": "GET", "url": "https://{orgId}.memberclicks.net/api/v1/country" },
+          "docs": "MODELED path. Reference lookup of countries; documented resource, exact path behind gated documentation."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Continuing Education", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List continuing education credits", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://{orgId}.memberclicks.net/api/v1/continuing-education/credit",
+            "params": [
+              { "name": "profileId", "value": "", "type": "query", "description": "Filter credits to a single profile." },
+              { "name": "pageNumber", "value": "1", "type": "query", "description": "1-based page number." },
+              { "name": "pageSize", "value": "10", "type": "query", "description": "Records per page (max 100)." }
+            ]
+          },
+          "docs": "Returns continuing education credits, optionally filtered by profileId. Paged."
+        },
+        {
+          "info": { "name": "Retrieve a continuing education credit", "type": "http" },
+          "http": {
+            "method": "GET",
+            "url": "https://{orgId}.memberclicks.net/api/v1/continuing-education/credit/:creditId",
+            "params": [
+              { "name": "creditId", "value": "", "type": "path", "description": "The ID of the credit." }
+            ]
+          },
+          "docs": "Returns a single continuing education credit by ID."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Groups (modeled)", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List groups", "type": "http" },
+          "http": { "method": "GET", "url": "https://{orgId}.memberclicks.net/api/v1/group" },
+          "docs": "MODELED path. Groups documented as an API resource (membership via a groupsUrl on a profile); exact path behind gated documentation."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Events (modeled)", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List events", "type": "http" },
+          "http": { "method": "GET", "url": "https://{orgId}.memberclicks.net/api/v1/event" },
+          "docs": "MODELED path. Events documented as an API resource; exact path behind gated documentation."
+        }
+      ]
+    }
+  ]
+}

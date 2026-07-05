@@ -1,0 +1,207 @@
+{
+  "info": {
+    "name": "MemberClicks MC Professional API",
+    "description": "JSON REST API for MemberClicks (by Personify) MC Professional association / membership management data - profiles, attributes, member types and statuses, continuing education, groups, and events. Protected by OAuth 2.0. Per-organization host: https://{{orgId}}.memberclicks.net. Obtain a bearer token from /oauth/v1/token using HTTP Basic client credentials. Group, Event, and Country paths are modeled from the documented resources.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      { "key": "token", "value": "{{accessToken}}", "type": "string" }
+    ]
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "https://{{orgId}}.memberclicks.net", "type": "string" },
+    { "key": "orgId", "value": "your-org", "type": "string" },
+    { "key": "accessToken", "value": "", "type": "string" },
+    { "key": "clientCredentials", "value": "", "type": "string", "description": "Base64 of clientId:clientSecret" }
+  ],
+  "item": [
+    {
+      "name": "Authorization",
+      "item": [
+        {
+          "name": "Obtain an access token",
+          "request": {
+            "auth": { "type": "noauth" },
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Basic {{clientCredentials}}" },
+              { "key": "Content-Type", "value": "application/x-www-form-urlencoded" }
+            ],
+            "body": { "mode": "urlencoded", "urlencoded": [
+              { "key": "grant_type", "value": "client_credentials" },
+              { "key": "scope", "value": "read write" }
+            ] },
+            "url": { "raw": "{{baseUrl}}/oauth/v1/token", "host": ["{{baseUrl}}"], "path": ["oauth", "v1", "token"] },
+            "description": "Exchanges Base64(clientId:clientSecret) client credentials for an OAuth 2.0 bearer access token."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Profiles",
+      "item": [
+        {
+          "name": "List profiles",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/profile?pageNumber=1&pageSize=10", "host": ["{{baseUrl}}"], "path": ["api", "v1", "profile"], "query": [{ "key": "pageNumber", "value": "1" }, { "key": "pageSize", "value": "10" }] },
+            "description": "Returns a paged list of all profiles."
+          }
+        },
+        {
+          "name": "Retrieve a profile",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/profile/:profileId", "host": ["{{baseUrl}}"], "path": ["api", "v1", "profile", ":profileId"], "variable": [{ "key": "profileId", "value": "" }] },
+            "description": "Returns a single profile by profileId."
+          }
+        },
+        {
+          "name": "Create a profile",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Accept", "value": "application/json" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"firstName\": \"\",\n  \"lastName\": \"\",\n  \"email\": \"\"\n}" },
+            "url": { "raw": "{{baseUrl}}/api/v1/profile", "host": ["{{baseUrl}}"], "path": ["api", "v1", "profile"] },
+            "description": "Creates a new profile. Requires the write scope."
+          }
+        },
+        {
+          "name": "Update a profile",
+          "request": {
+            "method": "PUT",
+            "header": [{ "key": "Accept", "value": "application/json" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/api/v1/profile/:profileId", "host": ["{{baseUrl}}"], "path": ["api", "v1", "profile", ":profileId"], "variable": [{ "key": "profileId", "value": "" }] },
+            "description": "Updates an existing profile. Requires the write scope."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Profile Search",
+      "item": [
+        {
+          "name": "Create a profile search",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Accept", "value": "application/json" }, { "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/api/v1/profile/search", "host": ["{{baseUrl}}"], "path": ["api", "v1", "profile", "search"] },
+            "description": "Creates a search over the membership database and returns matching profiles."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Attributes",
+      "item": [
+        {
+          "name": "List attributes",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/attribute", "host": ["{{baseUrl}}"], "path": ["api", "v1", "attribute"] },
+            "description": "Lists the profile attributes (built-in and custom fields)."
+          }
+        },
+        {
+          "name": "List attribute selection options",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/attribute/:attributeId/selection", "host": ["{{baseUrl}}"], "path": ["api", "v1", "attribute", ":attributeId", "selection"], "variable": [{ "key": "attributeId", "value": "" }] },
+            "description": "Returns the selection-set options for a custom attribute."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Reference Data",
+      "item": [
+        {
+          "name": "List member types",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/member-type", "host": ["{{baseUrl}}"], "path": ["api", "v1", "member-type"] },
+            "description": "Returns the organization's member types."
+          }
+        },
+        {
+          "name": "List member statuses",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/member-status", "host": ["{{baseUrl}}"], "path": ["api", "v1", "member-status"] },
+            "description": "Returns the organization's member statuses."
+          }
+        },
+        {
+          "name": "List countries (modeled)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/country", "host": ["{{baseUrl}}"], "path": ["api", "v1", "country"] },
+            "description": "MODELED path. Reference lookup of countries; the resource is documented but the exact path is behind gated documentation."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Continuing Education",
+      "item": [
+        {
+          "name": "List continuing education credits",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/continuing-education/credit?pageNumber=1&pageSize=10", "host": ["{{baseUrl}}"], "path": ["api", "v1", "continuing-education", "credit"], "query": [{ "key": "profileId", "value": "", "disabled": true }, { "key": "pageNumber", "value": "1" }, { "key": "pageSize", "value": "10" }] },
+            "description": "Returns continuing education credits, optionally filtered by profileId. Paged (pageSize max 100)."
+          }
+        },
+        {
+          "name": "Retrieve a continuing education credit",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/continuing-education/credit/:creditId", "host": ["{{baseUrl}}"], "path": ["api", "v1", "continuing-education", "credit", ":creditId"], "variable": [{ "key": "creditId", "value": "" }] },
+            "description": "Returns a single continuing education credit by ID."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Groups (modeled)",
+      "item": [
+        {
+          "name": "List groups",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/group", "host": ["{{baseUrl}}"], "path": ["api", "v1", "group"] },
+            "description": "MODELED path. Groups are documented as an API resource (group membership reached via a groupsUrl on a profile); exact path is behind gated documentation."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Events (modeled)",
+      "item": [
+        {
+          "name": "List events",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Accept", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/v1/event", "host": ["{{baseUrl}}"], "path": ["api", "v1", "event"] },
+            "description": "MODELED path. Events are documented as an API resource; exact path is behind gated documentation."
+          }
+        }
+      ]
+    }
+  ]
+}

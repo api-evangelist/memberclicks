@@ -1,0 +1,131 @@
+aid: memberclicks
+name: MemberClicks
+review:
+  question: Does MemberClicks expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-05'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. MemberClicks' MC Professional API is a
+    request/response JSON REST API over HTTPS, authenticated with OAuth 2.0
+    bearer tokens. There is no documented server-push transport (WebSocket or
+    SSE) on the MemberClicks API to model. Near-real-time integration is done
+    through third-party tools (Zapier) and periodic REST polling, not a
+    MemberClicks-hosted streaming socket.
+findings:
+  summary: |
+    MemberClicks does not publish a documented public WebSocket API. MemberClicks
+    (owned by Personify, "MemberClicks by Personify") is association / membership
+    management software. Its MC Professional platform (formerly branded "Oasis")
+    exposes a documented public/partner developer API: a JSON REST interface
+    protected by the OAuth 2.0 authorization framework, hosted per organization
+    at https://{orgId}.memberclicks.net. Clients obtain a token from
+    /oauth/v1/token (HTTP Basic client credentials, scope read/write/read write)
+    and call /api/v1/* resources with an Authorization: Bearer token and an
+    Accept: application/json header. All documented surfaces are request/response
+    REST. No realtime, bidirectional, or streaming WebSocket (ws:// or wss://)
+    endpoint is documented anywhere in the MemberClicks developer documentation.
+  accessModel: |
+    The API is real and documented but gated. There is no open self-serve key
+    issuance or public sandbox. OAuth client credentials (client ID + secret)
+    are provisioned inside an MC Professional account under API Management, and
+    every organization has its own per-tenant host. The developer help center
+    (help.memberclicks.com) is behind Cloudflare bot protection and returns HTTP
+    403 to automated fetches, so endpoint details were captured from the public
+    help-center overview and search excerpts rather than full-page crawls.
+  ownership: |
+    MemberClicks is owned by Personify and is marketed as "MemberClicks by
+    Personify". MC Professional is the current product brand; "Oasis" was the
+    prior brand and an older Oasis generation of the API is still referenced in
+    the help center.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://{orgId}.memberclicks.net/api/v1
+      documented: true
+      note: MC Professional JSON REST API. Per-organization host; OAuth 2.0 bearer tokens.
+    - protocol: OAuth 2.0 Token
+      scheme: https
+      baseURL: https://{orgId}.memberclicks.net/oauth/v1/token
+      documented: true
+      note: HTTP Basic client credentials (Base64 clientId:clientSecret); scope read | write | read write.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in the MemberClicks / MC Professional API docs as of the review date.
+  endpointsConfirmedRest:
+    - POST   https://{orgId}.memberclicks.net/oauth/v1/token
+    - GET    https://{orgId}.memberclicks.net/api/v1/profile
+    - GET    https://{orgId}.memberclicks.net/api/v1/profile/{profileId}
+    - POST   https://{orgId}.memberclicks.net/api/v1/profile
+    - PUT    https://{orgId}.memberclicks.net/api/v1/profile/{profileId}
+    - POST   https://{orgId}.memberclicks.net/api/v1/profile/search
+    - GET    https://{orgId}.memberclicks.net/api/v1/attribute
+    - GET    https://{orgId}.memberclicks.net/api/v1/attribute/{attributeId}/selection
+    - GET    https://{orgId}.memberclicks.net/api/v1/member-type
+    - GET    https://{orgId}.memberclicks.net/api/v1/member-status
+    - GET    https://{orgId}.memberclicks.net/api/v1/continuing-education/credit
+    - GET    https://{orgId}.memberclicks.net/api/v1/continuing-education/credit/{creditId}
+  endpointsModeled:
+    - GET    https://{orgId}.memberclicks.net/api/v1/country
+    - GET    https://{orgId}.memberclicks.net/api/v1/group
+    - GET    https://{orgId}.memberclicks.net/api/v1/group/{groupId}
+    - GET    https://{orgId}.memberclicks.net/api/v1/event
+    - GET    https://{orgId}.memberclicks.net/api/v1/event/{eventId}
+  endpointsModeledNote: |
+    Countries, Groups, and Events are documented as API resources, but their
+    exact request paths are behind the gated (Cloudflare-protected) developer
+    documentation and could not be reproduced verbatim. The paths above follow
+    the confirmed /api/v1/{resource} convention and are modeled, not verified.
+    Group membership is documented as being reached via a groupsUrl reference on
+    the profile's group built-in attribute.
+sources:
+  - url: https://help.memberclicks.com/hc/en-us/articles/15442882637453-API-Overview
+    type: Documentation
+    note: MC Professional API overview - JSON REST, OAuth 2.0, Accept application/json. Cloudflare-gated; read via search excerpts.
+  - url: https://help.memberclicks.com/hc/en-us/articles/15442886478861-API-Authorization
+    type: Documentation
+    note: OAuth 2.0 authorization - POST /oauth/v1/token, HTTP Basic client credentials, scope read/write.
+  - url: https://help.memberclicks.com/hc/en-us/articles/15442876413197-API-Resources
+    type: APIReference
+    note: API resources index - Profiles, Attributes, Countries, Groups, Member Statuses, Member Types, Events.
+  - url: https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
+    type: APIReference
+    note: GET /api/v1/profile and /api/v1/profile/{profileId}.
+  - url: https://help.memberclicks.com/hc/en-us/articles/40380650243085-API-Resources-Create-Profiles
+    type: APIReference
+    note: POST /api/v1/profile.
+  - url: https://help.memberclicks.com/hc/en-us/articles/15442958956813-API-Resources-Profile-Search
+    type: APIReference
+    note: POST /api/v1/profile/search.
+  - url: https://help.memberclicks.com/hc/en-us/articles/15442877631373-API-Resources-Attributes
+    type: APIReference
+    note: GET /api/v1/attribute/{attributeId}/selection.
+  - url: https://help.memberclicks.com/hc/en-us/articles/15442888509581-API-Resources-Member-Types
+    type: APIReference
+    note: GET /api/v1/member-type.
+  - url: https://help.memberclicks.com/hc/en-us/articles/15442888658829-API-Resources-Member-Statuses
+    type: APIReference
+    note: GET /api/v1/member-status.
+  - url: https://help.memberclicks.com/hc/en-us/articles/15442888723341-API-Resources-Continuing-Education
+    type: APIReference
+    note: GET /api/v1/continuing-education/credit with profileId, pageNumber, pageSize.
+  - url: https://help.memberclicks.com/hc/en-us/articles/15442887570573-API-Resources-Events
+    type: APIReference
+    note: Events API resource (exact paths gated).
+  - url: https://help.memberclicks.com/hc/en-us/articles/18581108667021-API-Management
+    type: Documentation
+    note: API Management - where OAuth client credentials are provisioned inside an account.
+  - url: https://memberclicks.com/membership-software-pricing/
+    type: Pricing
+    note: Platform pricing by organization size; quote-based, billed annually.
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. The MemberClicks MC Professional API
+    is a request/response JSON REST API secured with OAuth 2.0, with no
+    documented server-push (WebSocket/SSE) transport. No AsyncAPI document was
+    created because there is no streaming transport on the MemberClicks API to
+    model.

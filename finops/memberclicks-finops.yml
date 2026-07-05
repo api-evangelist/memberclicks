@@ -1,0 +1,74 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: MemberClicks
+providerId: memberclicks
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Membership Management
+- Association Management
+- AMS
+- Personify
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of MemberClicks spend. MemberClicks (by Personify) is sold as an
+  annual SaaS platform subscription (MC Professional or MC Trade), not as a
+  metered API. The MC Professional REST API is included with the subscription at
+  no separate per-call charge, so API usage does not directly generate variable
+  cost. The dominant cost drivers are the annual platform subscription (quoted by
+  organization size and needs) and one-time implementation / data-migration fees.
+  There is no usage-based API billing to meter or optimize.
+notes: >-
+  Exact subscription rates are quote-based and not reconciled here. Because the
+  API carries no separate metered charge, FinOps attention is on the fixed annual
+  subscription and one-time implementation costs rather than on API call volume.
+sources:
+- https://memberclicks.com/membership-software-pricing/
+- https://memberclicks.com/ams-roadmap/how-much-does-association-management-software-cost/
+- https://help.memberclicks.com/hc/en-us/articles/18581108667021-API-Management
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: MemberClicks
+serviceCategory: Management and Governance
+billingModel:
+  pricingCategory: Subscription
+  billingFrequency: Annual
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Usage
+meters:
+- name: platform_subscription
+  description: Annual MC Professional / MC Trade platform subscription (includes API access).
+  unit: contract-year
+  aggregation: sum
+  dimensions:
+  - organization
+  - edition
+- name: implementation_fee
+  description: One-time implementation, data migration, and onboarding.
+  unit: project
+  aggregation: sum
+  dimensions:
+  - organization
+principles:
+- name: Visibility
+  description: Track the annual subscription and any one-time implementation fees; the API itself is unmetered and adds no variable charge.
+- name: Allocation
+  description: Attribute the platform subscription to the association / membership program it runs; there is no per-call cost to split.
+- name: Optimization
+  description: Right-size the edition (MC Professional vs MC Trade) to the organization's needs; negotiate implementation scope; use the included API rather than paid add-ons where possible.
+- name: Accountability
+  description: Review the annual renewal against usage of platform capabilities; assign an owner for the subscription and API credentials.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com
