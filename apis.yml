@@ -155,6 +155,8 @@ apis:
     GET /api/v1/continuing-education/credit (filterable by profileId with pageNumber
     and pageSize paging) and retrieve a single credit by creditId.
 common:
+- type: OAuthScopes
+  url: scopes/memberclicks-scopes.yml
 - type: LinkedIn
   url: https://www.linkedin.com/company/memberclicks
 - type: Website
