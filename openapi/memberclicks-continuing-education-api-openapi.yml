@@ -1,0 +1,140 @@
+openapi: 3.0.3
+info:
+  title: MemberClicks MC Professional Attributes Continuing Education API
+  description: 'The MemberClicks MC Professional API (formerly branded "Oasis") is a JSON REST API for interacting with an organization''s association / membership management data - profiles, attributes, member types and statuses, groups, events, and continuing education credits. MemberClicks is owned by Personify. The API is protected by the OAuth 2.0 authorization framework: a client obtains an access token from /oauth/v1/token using HTTP Basic client credentials (Base64 clientId:clientSecret) with scope "read", "write", or "read write", then sends it as an Authorization: Bearer token on each request along with an Accept: application/json header.
+
+    The API is hosted per organization at https://{orgId}.memberclicks.net, where {orgId} is the organization''s MC Professional ID. There is no single global host and no open self-serve key issuance - client credentials are provisioned inside an MC Professional account under API Management. MemberClicks notes the API is intended for developers with technical expertise and that support does not assist with custom integrations.
+
+    Endpoints for Countries, Groups, and Events are documented as API resources but their exact paths are behind gated (Cloudflare-protected) developer documentation; those paths in this document are modeled to the confirmed /api/v1/{resource} convention (see x-endpoint-status).'
+  version: '1.0'
+  contact:
+    name: MemberClicks by Personify
+    url: https://memberclicks.com
+servers:
+- url: https://{orgId}.memberclicks.net
+  description: Per-organization MC Professional host
+  variables:
+    orgId:
+      default: your-org
+      description: The organization's MC Professional ID.
+security:
+- oauth2: []
+tags:
+- name: Continuing Education
+  description: Continuing education credits.
+paths:
+  /api/v1/continuing-education/credit:
+    get:
+      operationId: listContinuingEducationCredits
+      tags:
+      - Continuing Education
+      summary: List continuing education credits
+      description: Returns continuing education credits, optionally filtered by profileId. Paged with pageNumber (default 1) and pageSize (default 10, max 100).
+      parameters:
+      - name: profileId
+        in: query
+        required: false
+        schema:
+          type: string
+        description: Filter credits to a single profile.
+      - $ref: '#/components/parameters/pageNumber'
+      - $ref: '#/components/parameters/pageSize'
+      responses:
+        '200':
+          description: A paged list of continuing education credits.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ContinuingEducationCredit'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/continuing-education/credit/{creditId}:
+    parameters:
+    - name: creditId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The ID of the continuing education credit.
+    get:
+      operationId: getContinuingEducationCredit
+      tags:
+      - Continuing Education
+      summary: Retrieve a continuing education credit
+      description: Returns a single continuing education credit by its ID.
+      responses:
+        '200':
+          description: The requested credit.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ContinuingEducationCredit'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ContinuingEducationCredit:
+      type: object
+      properties:
+        creditId:
+          type: string
+        profileId:
+          type: string
+        amount:
+          type: number
+        earnedDate:
+          type: string
+          format: date
+      additionalProperties: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+  parameters:
+    pageSize:
+      name: pageSize
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
+      description: The number of records per page (max 100).
+    pageNumber:
+      name: pageNumber
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+      description: The 1-based page number to return.
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0. Obtain a bearer token from /oauth/v1/token using HTTP Basic client credentials (Base64 clientId:clientSecret) with scope read, write, or read write.
+      flows:
+        clientCredentials:
+          tokenUrl: https://{orgId}.memberclicks.net/oauth/v1/token
+          scopes:
+            read: Read access to resources.
+            write: Write access to resources.

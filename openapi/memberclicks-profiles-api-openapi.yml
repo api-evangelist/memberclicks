@@ -1,0 +1,198 @@
+openapi: 3.0.3
+info:
+  title: MemberClicks MC Professional Attributes Profiles API
+  description: 'The MemberClicks MC Professional API (formerly branded "Oasis") is a JSON REST API for interacting with an organization''s association / membership management data - profiles, attributes, member types and statuses, groups, events, and continuing education credits. MemberClicks is owned by Personify. The API is protected by the OAuth 2.0 authorization framework: a client obtains an access token from /oauth/v1/token using HTTP Basic client credentials (Base64 clientId:clientSecret) with scope "read", "write", or "read write", then sends it as an Authorization: Bearer token on each request along with an Accept: application/json header.
+
+    The API is hosted per organization at https://{orgId}.memberclicks.net, where {orgId} is the organization''s MC Professional ID. There is no single global host and no open self-serve key issuance - client credentials are provisioned inside an MC Professional account under API Management. MemberClicks notes the API is intended for developers with technical expertise and that support does not assist with custom integrations.
+
+    Endpoints for Countries, Groups, and Events are documented as API resources but their exact paths are behind gated (Cloudflare-protected) developer documentation; those paths in this document are modeled to the confirmed /api/v1/{resource} convention (see x-endpoint-status).'
+  version: '1.0'
+  contact:
+    name: MemberClicks by Personify
+    url: https://memberclicks.com
+servers:
+- url: https://{orgId}.memberclicks.net
+  description: Per-organization MC Professional host
+  variables:
+    orgId:
+      default: your-org
+      description: The organization's MC Professional ID.
+security:
+- oauth2: []
+tags:
+- name: Profiles
+  description: Member / contact profile records.
+paths:
+  /api/v1/profile:
+    get:
+      operationId: listProfiles
+      tags:
+      - Profiles
+      summary: List profiles
+      description: Returns a paged list of all profiles in the organization.
+      parameters:
+      - $ref: '#/components/parameters/pageNumber'
+      - $ref: '#/components/parameters/pageSize'
+      responses:
+        '200':
+          description: A paged list of profiles.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ProfileList'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+    post:
+      operationId: createProfile
+      tags:
+      - Profiles
+      summary: Create a profile
+      description: Creates a new profile. Requires the "write" scope.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+      responses:
+        '201':
+          description: The created profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /api/v1/profile/{profileId}:
+    parameters:
+    - $ref: '#/components/parameters/profileId'
+    get:
+      operationId: getProfile
+      tags:
+      - Profiles
+      summary: Retrieve a profile
+      description: Returns a single profile by its profileId.
+      responses:
+        '200':
+          description: The requested profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+    put:
+      operationId: updateProfile
+      tags:
+      - Profiles
+      summary: Update a profile
+      description: Updates an existing profile's attributes. Requires the "write" scope.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Profile'
+      responses:
+        '200':
+          description: The updated profile.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Profile'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    ProfileList:
+      type: object
+      properties:
+        totalCount:
+          type: integer
+        pageNumber:
+          type: integer
+        pageSize:
+          type: integer
+        profiles:
+          type: array
+          items:
+            $ref: '#/components/schemas/Profile'
+    Profile:
+      type: object
+      description: A member / contact profile. Fields are largely attribute-driven and vary by organization; commonly present fields are shown here.
+      properties:
+        profileId:
+          type: string
+        memberType:
+          type: string
+        memberStatus:
+          type: string
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+        groupsUrl:
+          type: string
+          description: Reference URL to the profile's group memberships.
+      additionalProperties: true
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
+  parameters:
+    profileId:
+      name: profileId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The ID of the profile.
+    pageSize:
+      name: pageSize
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 10
+        maximum: 100
+      description: The number of records per page (max 100).
+    pageNumber:
+      name: pageNumber
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 1
+      description: The 1-based page number to return.
+  securitySchemes:
+    oauth2:
+      type: oauth2
+      description: OAuth 2.0. Obtain a bearer token from /oauth/v1/token using HTTP Basic client credentials (Base64 clientId:clientSecret) with scope read, write, or read write.
+      flows:
+        clientCredentials:
+          tokenUrl: https://{orgId}.memberclicks.net/oauth/v1/token
+          scopes:
+            read: Read access to resources.
+            write: Write access to resources.
