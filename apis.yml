@@ -14,7 +14,20 @@ description: MemberClicks is association and membership management software owne
   assist with custom integrations. Access to profile, event, and related data is
   gated behind per-organization OAuth client credentials rather than open self-serve
   signup.
-image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+accessModel:
+  pricing: paid
+  onboarding: self-serve
+  trial: true
+  try_now: true
+  public: false
+  label: Paid (free trial) · Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/memberclicks.png
 tags:
 - Membership Management
 - Association Management
@@ -27,133 +40,262 @@ created: '2026-07-05'
 modified: '2026-07-05'
 specificationVersion: '0.19'
 apis:
-- aid: memberclicks:memberclicks-profiles-api
-  name: MemberClicks Profiles API
-  tags:
-  - Profiles
-  - Members
-  - Contacts
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
-  baseURL: https://{orgId}.memberclicks.net/api/v1
-  properties:
-  - url: https://help.memberclicks.com/hc/en-us/articles/15442876413197-API-Resources
-    type: Documentation
-  - url: https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
-    type: APIReference
-  - url: openapi/memberclicks-openapi.yml
-    type: OpenAPI
-  description: Retrieve, create, and update member/contact profiles - the core people
-    records in MC Professional. List all profiles (paged), get a single profile by
-    profileId, create new profiles, and update existing profile attributes. Requests
-    are JSON over HTTPS with an OAuth 2.0 bearer access token.
-- aid: memberclicks:memberclicks-profile-search-api
-  name: MemberClicks Profile Search API
-  tags:
-  - Search
-  - Profiles
-  - Query
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://help.memberclicks.com/hc/en-us/articles/15442958956813-API-Resources-Profile-Search
-  baseURL: https://{orgId}.memberclicks.net/api/v1
-  properties:
-  - url: https://help.memberclicks.com/hc/en-us/articles/15442958956813-API-Resources-Profile-Search
-    type: APIReference
-  - url: openapi/memberclicks-openapi.yml
-    type: OpenAPI
-  description: Create a profile search by POSTing search criteria to /api/v1/profile/search,
-    then page through the matching profiles. Lets integrations filter the membership
-    database by attributes rather than retrieving every profile.
 - aid: memberclicks:memberclicks-attributes-api
   name: MemberClicks Attributes API
+  description: Profile schema - built-in and custom fields.
+  humanURL: >-
+    https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
+  baseURL: https://{orgId}.memberclicks.net/api/v1
   tags:
   - Attributes
-  - Schema
-  - Custom Fields
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://help.memberclicks.com/hc/en-us/articles/15442877631373-API-Resources-Attributes
-  baseURL: https://{orgId}.memberclicks.net/api/v1
   properties:
-  - url: https://help.memberclicks.com/hc/en-us/articles/15442877631373-API-Resources-Attributes
-    type: APIReference
-  - url: openapi/memberclicks-openapi.yml
-    type: OpenAPI
-  description: Describe the profile schema - list attributes (built-in and custom
-    fields) and retrieve the selection-set options for a given attribute via
-    /api/v1/attribute/{attributeId}/selection. Used to map an organization's custom
-    membership fields before reading or writing profiles.
-- aid: memberclicks:memberclicks-member-types-statuses-api
-  name: MemberClicks Member Types and Statuses API
+  - type: OpenAPI
+    url: openapi/memberclicks-attributes-api-openapi.yml
+  - type: Documentation
+    url: https://help.memberclicks.com/hc/en-us/articles/15442876413197-API-Resources
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442958956813-API-Resources-Profile-Search
+  - type: APIReference
+    url: https://help.memberclicks.com/hc/en-us/articles/15442877631373-API-Resources-Attributes
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888509581-API-Resources-Member-Types
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888658829-API-Resources-Member-Statuses
+  - type: APIReference
+    url: https://help.memberclicks.com/hc/en-us/articles/15442887570573-API-Resources-Events
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888723341-API-Resources-Continuing-Education
+- aid: memberclicks:memberclicks-authorization-api
+  name: MemberClicks Authorization API
+  description: OAuth 2.0 token issuance.
+  humanURL: >-
+    https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
+  baseURL: https://{orgId}.memberclicks.net/api/v1
   tags:
-  - Member Types
-  - Member Statuses
-  - Reference Data
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://help.memberclicks.com/hc/en-us/articles/15442888509581-API-Resources-Member-Types
-  baseURL: https://{orgId}.memberclicks.net/api/v1
+  - Authorization
   properties:
-  - url: https://help.memberclicks.com/hc/en-us/articles/15442888509581-API-Resources-Member-Types
-    type: APIReference
-  - url: https://help.memberclicks.com/hc/en-us/articles/15442888658829-API-Resources-Member-Statuses
-    type: APIReference
-  - url: openapi/memberclicks-openapi.yml
-    type: OpenAPI
-  description: Reference-data lookups for the membership model - GET /api/v1/member-type
-    lists the organization's member types and GET /api/v1/member-status lists the
-    member statuses used to classify profiles.
-- aid: memberclicks:memberclicks-groups-api
-  name: MemberClicks Groups API
-  tags:
-  - Groups
-  - Segments
-  - Community
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://help.memberclicks.com/hc/en-us/sections/14749781143437-API
-  baseURL: https://{orgId}.memberclicks.net/api/v1
-  properties:
-  - url: https://help.memberclicks.com/hc/en-us/articles/15442876413197-API-Resources
-    type: Documentation
-  - url: openapi/memberclicks-openapi.yml
-    type: OpenAPI
-  description: Read the groups a profile belongs to. MC Professional exposes group
-    membership through a groupsUrl reference on the profile's group built-in
-    attribute; exact request paths are modeled here rather than reproduced from the
-    gated developer documentation.
-- aid: memberclicks:memberclicks-events-api
-  name: MemberClicks Events API
-  tags:
-  - Events
-  - Registration
-  - Calendar
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://help.memberclicks.com/hc/en-us/articles/15442887570573-API-Resources-Events
-  baseURL: https://{orgId}.memberclicks.net/api/v1
-  properties:
-  - url: https://help.memberclicks.com/hc/en-us/articles/15442887570573-API-Resources-Events
-    type: APIReference
-  - url: openapi/memberclicks-openapi.yml
-    type: OpenAPI
-  description: Read event and registration data managed in MC Professional. An Events
-    API resource is documented in the developer help center; the exact request paths
-    are modeled here because the reference pages are behind the gated developer
-    documentation.
+  - type: OpenAPI
+    url: openapi/memberclicks-authorization-api-openapi.yml
+  - type: Documentation
+    url: https://help.memberclicks.com/hc/en-us/articles/15442876413197-API-Resources
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442958956813-API-Resources-Profile-Search
+  - type: APIReference
+    url: https://help.memberclicks.com/hc/en-us/articles/15442877631373-API-Resources-Attributes
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888509581-API-Resources-Member-Types
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888658829-API-Resources-Member-Statuses
+  - type: APIReference
+    url: https://help.memberclicks.com/hc/en-us/articles/15442887570573-API-Resources-Events
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888723341-API-Resources-Continuing-Education
 - aid: memberclicks:memberclicks-continuing-education-api
   name: MemberClicks Continuing Education API
+  description: Continuing education credits.
+  humanURL: >-
+    https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
+  baseURL: https://{orgId}.memberclicks.net/api/v1
   tags:
   - Continuing Education
-  - Credits
-  - Certification
-  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
-  humanURL: https://help.memberclicks.com/hc/en-us/articles/15442888723341-API-Resources-Continuing-Education
-  baseURL: https://{orgId}.memberclicks.net/api/v1
   properties:
-  - url: https://help.memberclicks.com/hc/en-us/articles/15442888723341-API-Resources-Continuing-Education
-    type: APIReference
-  - url: openapi/memberclicks-openapi.yml
-    type: OpenAPI
-  description: Read continuing education credits earned by members. List credits via
-    GET /api/v1/continuing-education/credit (filterable by profileId with pageNumber
-    and pageSize paging) and retrieve a single credit by creditId.
+  - type: OpenAPI
+    url: openapi/memberclicks-continuing-education-api-openapi.yml
+  - type: Documentation
+    url: https://help.memberclicks.com/hc/en-us/articles/15442876413197-API-Resources
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442958956813-API-Resources-Profile-Search
+  - type: APIReference
+    url: https://help.memberclicks.com/hc/en-us/articles/15442877631373-API-Resources-Attributes
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888509581-API-Resources-Member-Types
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888658829-API-Resources-Member-Statuses
+  - type: APIReference
+    url: https://help.memberclicks.com/hc/en-us/articles/15442887570573-API-Resources-Events
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888723341-API-Resources-Continuing-Education
+- aid: memberclicks:memberclicks-events-api
+  name: MemberClicks Events API
+  description: Events and registration (modeled paths).
+  humanURL: >-
+    https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
+  baseURL: https://{orgId}.memberclicks.net/api/v1
+  tags:
+  - Events
+  properties:
+  - type: OpenAPI
+    url: openapi/memberclicks-events-api-openapi.yml
+  - type: Documentation
+    url: https://help.memberclicks.com/hc/en-us/articles/15442876413197-API-Resources
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442958956813-API-Resources-Profile-Search
+  - type: APIReference
+    url: https://help.memberclicks.com/hc/en-us/articles/15442877631373-API-Resources-Attributes
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888509581-API-Resources-Member-Types
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888658829-API-Resources-Member-Statuses
+  - type: APIReference
+    url: https://help.memberclicks.com/hc/en-us/articles/15442887570573-API-Resources-Events
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888723341-API-Resources-Continuing-Education
+- aid: memberclicks:memberclicks-groups-api
+  name: MemberClicks Groups API
+  description: Group membership (modeled paths).
+  humanURL: >-
+    https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
+  baseURL: https://{orgId}.memberclicks.net/api/v1
+  tags:
+  - Groups
+  properties:
+  - type: OpenAPI
+    url: openapi/memberclicks-groups-api-openapi.yml
+  - type: Documentation
+    url: https://help.memberclicks.com/hc/en-us/articles/15442876413197-API-Resources
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442958956813-API-Resources-Profile-Search
+  - type: APIReference
+    url: https://help.memberclicks.com/hc/en-us/articles/15442877631373-API-Resources-Attributes
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888509581-API-Resources-Member-Types
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888658829-API-Resources-Member-Statuses
+  - type: APIReference
+    url: https://help.memberclicks.com/hc/en-us/articles/15442887570573-API-Resources-Events
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888723341-API-Resources-Continuing-Education
+- aid: memberclicks:memberclicks-profile-search-api
+  name: MemberClicks Profile Search API
+  description: Search over the membership database.
+  humanURL: >-
+    https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
+  baseURL: https://{orgId}.memberclicks.net/api/v1
+  tags:
+  - Profile Search
+  properties:
+  - type: OpenAPI
+    url: openapi/memberclicks-profile-search-api-openapi.yml
+  - type: Documentation
+    url: https://help.memberclicks.com/hc/en-us/articles/15442876413197-API-Resources
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442958956813-API-Resources-Profile-Search
+  - type: APIReference
+    url: https://help.memberclicks.com/hc/en-us/articles/15442877631373-API-Resources-Attributes
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888509581-API-Resources-Member-Types
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888658829-API-Resources-Member-Statuses
+  - type: APIReference
+    url: https://help.memberclicks.com/hc/en-us/articles/15442887570573-API-Resources-Events
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888723341-API-Resources-Continuing-Education
+- aid: memberclicks:memberclicks-profiles-api
+  name: MemberClicks Profiles API
+  description: Member / contact profile records.
+  humanURL: >-
+    https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
+  baseURL: https://{orgId}.memberclicks.net/api/v1
+  tags:
+  - Profiles
+  properties:
+  - type: OpenAPI
+    url: openapi/memberclicks-profiles-api-openapi.yml
+  - type: Documentation
+    url: https://help.memberclicks.com/hc/en-us/articles/15442876413197-API-Resources
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442958956813-API-Resources-Profile-Search
+  - type: APIReference
+    url: https://help.memberclicks.com/hc/en-us/articles/15442877631373-API-Resources-Attributes
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888509581-API-Resources-Member-Types
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888658829-API-Resources-Member-Statuses
+  - type: APIReference
+    url: https://help.memberclicks.com/hc/en-us/articles/15442887570573-API-Resources-Events
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888723341-API-Resources-Continuing-Education
+- aid: memberclicks:memberclicks-reference-data-api
+  name: MemberClicks Reference Data API
+  description: Member types and statuses.
+  humanURL: >-
+    https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
+  baseURL: https://{orgId}.memberclicks.net/api/v1
+  tags:
+  - Reference Data
+  properties:
+  - type: OpenAPI
+    url: openapi/memberclicks-reference-data-api-openapi.yml
+  - type: Documentation
+    url: https://help.memberclicks.com/hc/en-us/articles/15442876413197-API-Resources
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442958956813-API-Resources-Profile-Search
+  - type: APIReference
+    url: https://help.memberclicks.com/hc/en-us/articles/15442877631373-API-Resources-Attributes
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888509581-API-Resources-Member-Types
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888658829-API-Resources-Member-Statuses
+  - type: APIReference
+    url: https://help.memberclicks.com/hc/en-us/articles/15442887570573-API-Resources-Events
+  - type: APIReference
+    url: >-
+      https://help.memberclicks.com/hc/en-us/articles/15442888723341-API-Resources-Continuing-Education
 common:
 - type: AgenticAccess
   url: agentic-access/memberclicks-agentic-access.yml
