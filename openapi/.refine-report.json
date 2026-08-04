@@ -1,0 +1,28 @@
+{
+  "provider": "memberclicks",
+  "sources": [
+    "memberclicks-attributes-api-openapi.yml",
+    "memberclicks-authorization-api-openapi.yml",
+    "memberclicks-continuing-education-api-openapi.yml",
+    "memberclicks-events-api-openapi.yml",
+    "memberclicks-groups-api-openapi.yml",
+    "memberclicks-profile-search-api-openapi.yml",
+    "memberclicks-profiles-api-openapi.yml",
+    "memberclicks-reference-data-api-openapi.yml"
+  ],
+  "outputs": [
+    "memberclicks-attributes-api-openapi.yml",
+    "memberclicks-authorization-api-openapi.yml",
+    "memberclicks-continuing-education-api-openapi.yml",
+    "memberclicks-events-api-openapi.yml",
+    "memberclicks-groups-api-openapi.yml",
+    "memberclicks-profile-search-api-openapi.yml",
+    "memberclicks-profiles-api-openapi.yml",
+    "memberclicks-reference-data-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
