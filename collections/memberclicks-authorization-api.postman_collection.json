@@ -1,0 +1,265 @@
+{
+  "item": [
+    {
+      "id": "6064f440-2d12-40c3-af47-fd9aef009276",
+      "name": "Authorization",
+      "description": {
+        "content": "OAuth 2.0 token issuance.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "74e3aa8b-d148-4086-a54c-aee68013fb26",
+          "name": "Obtain an OAuth 2.0 access token",
+          "request": {
+            "name": "Obtain an OAuth 2.0 access token",
+            "description": {
+              "content": "Exchanges client credentials for an access token. The client ID and secret are Base64-encoded as clientId:clientSecret in an HTTP Basic Authorization header. Request scope \"read\", \"write\", or \"read write\".",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "oauth",
+                "v1",
+                "token"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The organization's MC Professional ID.",
+                  "type": "any",
+                  "value": "{{orgId}}",
+                  "key": "orgId"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/x-www-form-urlencoded"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "urlencoded",
+              "urlencoded": [
+                {
+                  "disabled": false,
+                  "key": "grant_type",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "scope",
+                  "value": "<string>"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "77d1d552-2774-498b-938d-9d3170e995a5",
+              "name": "An access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oauth",
+                    "v1",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The organization's MC Professional ID.",
+                      "type": "any",
+                      "value": "{{orgId}}",
+                      "key": "orgId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Basic <Base64(clientId:clientSecret)>",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "grant_type",
+                      "value": "client_credentials"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "scope",
+                      "value": "read write"
+                    }
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"access_token\": \"string\",\n  \"token_type\": \"bearer\",\n  \"expires_in\": 377,\n  \"scope\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "1e24fd5f-8b51-4947-9881-313f5db2ae55",
+              "name": "Missing or invalid access token.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "oauth",
+                    "v1",
+                    "token"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The organization's MC Professional ID.",
+                      "type": "any",
+                      "value": "{{orgId}}",
+                      "key": "orgId"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: oauth2",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<token>"
+                  },
+                  {
+                    "disabled": false,
+                    "description": "(Required) Basic <Base64(clientId:clientSecret)>",
+                    "key": "Authorization",
+                    "value": "string"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "urlencoded",
+                  "urlencoded": [
+                    {
+                      "disabled": false,
+                      "key": "grant_type",
+                      "value": "client_credentials"
+                    },
+                    {
+                      "disabled": false,
+                      "key": "scope",
+                      "value": "read write"
+                    }
+                  ]
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"string\",\n  \"message\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The organization's MC Professional ID.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "your-org",
+      "key": "orgId"
+    },
+    {
+      "type": "string",
+      "value": "https://{{orgId}}.memberclicks.net",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "oauth2",
+    "oauth2": [
+      {
+        "key": "scope",
+        "value": "read write"
+      },
+      {
+        "key": "accessTokenUrl",
+        "value": "https://{orgId}.memberclicks.net/oauth/v1/token"
+      },
+      {
+        "key": "grant_type",
+        "value": "client_credentials"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0f56d0e3-88f6-44e0-9a0f-c5d1ec4d79cb",
+    "name": "MemberClicks MC Professional Attributes Authorization API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The MemberClicks MC Professional API (formerly branded \"Oasis\") is a JSON REST API for interacting with an organization's association / membership management data - profiles, attributes, member types and statuses, groups, events, and continuing education credits. MemberClicks is owned by Personify. The API is protected by the OAuth 2.0 authorization framework: a client obtains an access token from /oauth/v1/token using HTTP Basic client credentials (Base64 clientId:clientSecret) with scope \"read\", \"write\", or \"read write\", then sends it as an Authorization: Bearer token on each request along with an Accept: application/json header.\nThe API is hosted per organization at https://{orgId}.memberclicks.net, where {orgId} is the organization's MC Professional ID. There is no single global host and no open self-serve key issuance - client credentials are provisioned inside an MC Professional account under API Management. MemberClicks notes the API is intended for developers with technical expertise and that support does not assist with custom integrations.\nEndpoints for Countries, Groups, and Events are documented as API resources but their exact paths are behind gated (Cloudflare-protected) developer documentation; those paths in this document are modeled to the confirmed /api/v1/{resource} convention (see x-endpoint-status).\n\nContact Support:\n Name: MemberClicks by Personify",
+      "type": "text/plain"
+    }
+  }
+}

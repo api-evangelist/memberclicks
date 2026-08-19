@@ -1,0 +1,111 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "MemberClicks MC Professional Attributes Profiles API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "oauth2",
+      "flow": "client_credentials",
+      "accessTokenUrl": "https://{orgId}.memberclicks.net/oauth/v1/token",
+      "credentials": {
+        "clientId": "{{clientId}}",
+        "clientSecret": "{{clientSecret}}"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Profiles",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List profiles",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{orgId}.memberclicks.net/api/v1/profile",
+            "params": [
+              {
+                "name": "pageNumber",
+                "value": "",
+                "type": "query",
+                "description": "The 1-based page number to return."
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query",
+                "description": "The number of records per page (max 100)."
+              }
+            ]
+          },
+          "docs": "Returns a paged list of all profiles in the organization."
+        },
+        {
+          "info": {
+            "name": "Create a profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{orgId}.memberclicks.net/api/v1/profile",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a new profile. Requires the \"write\" scope."
+        },
+        {
+          "info": {
+            "name": "Retrieve a profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{orgId}.memberclicks.net/api/v1/profile/:profileId",
+            "params": [
+              {
+                "name": "profileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the profile."
+              }
+            ]
+          },
+          "docs": "Returns a single profile by its profileId."
+        },
+        {
+          "info": {
+            "name": "Update a profile",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://{orgId}.memberclicks.net/api/v1/profile/:profileId",
+            "params": [
+              {
+                "name": "profileId",
+                "value": "",
+                "type": "path",
+                "description": "The ID of the profile."
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Updates an existing profile's attributes. Requires the \"write\" scope."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
