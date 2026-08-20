@@ -32,6 +32,14 @@ tags:
 - Membership Management
 - Association Management
 - AMS
+- Non-Profit
+- Event
+- CRM
+- Personify
+tags_raw:
+- Membership Management
+- Association Management
+- AMS
 - Nonprofit
 - Events
 - CRM
@@ -143,6 +151,8 @@ apis:
     https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
   baseURL: https://{orgId}.memberclicks.net/api/v1
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
@@ -175,6 +185,8 @@ apis:
     https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles
   baseURL: https://{orgId}.memberclicks.net/api/v1
   tags:
+  - Group
+  tags_raw:
   - Groups
   properties:
   - type: OpenAPI
