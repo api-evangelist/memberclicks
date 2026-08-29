@@ -14,6 +14,18 @@ description: MemberClicks is association and membership management software owne
   assist with custom integrations. Access to profile, event, and related data is
   gated behind per-organization OAuth client credentials rather than open self-serve
   signup.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
