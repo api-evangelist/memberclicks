@@ -1,11 +1,7 @@
-openapi: 3.0.3
+openapi: 3.2.0
 info:
   title: MemberClicks MC Professional Attributes API
-  description: 'The MemberClicks MC Professional API (formerly branded "Oasis") is a JSON REST API for interacting with an organization''s association / membership management data - profiles, attributes, member types and statuses, groups, events, and continuing education credits. MemberClicks is owned by Personify. The API is protected by the OAuth 2.0 authorization framework: a client obtains an access token from /oauth/v1/token using HTTP Basic client credentials (Base64 clientId:clientSecret) with scope "read", "write", or "read write", then sends it as an Authorization: Bearer token on each request along with an Accept: application/json header.
-
-    The API is hosted per organization at https://{orgId}.memberclicks.net, where {orgId} is the organization''s MC Professional ID. There is no single global host and no open self-serve key issuance - client credentials are provisioned inside an MC Professional account under API Management. MemberClicks notes the API is intended for developers with technical expertise and that support does not assist with custom integrations.
-
-    Endpoints for Countries, Groups, and Events are documented as API resources but their exact paths are behind gated (Cloudflare-protected) developer documentation; those paths in this document are modeled to the confirmed /api/v1/{resource} convention (see x-endpoint-status).'
+  description: The MemberClicks MC Professional API (formerly branded "Oasis") is a JSON REST API for interacting with an organization's association / membership management data - profiles, attributes, member types and statuses, groups, events, and continuing education credits.
   version: '1.0'
   contact:
     name: MemberClicks by Personify

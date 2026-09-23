@@ -1,14 +1,7 @@
 {
   "provider": "memberclicks",
   "sources": [
-    "memberclicks-attributes-api-openapi.yml",
-    "memberclicks-authorization-api-openapi.yml",
-    "memberclicks-continuing-education-api-openapi.yml",
-    "memberclicks-events-api-openapi.yml",
-    "memberclicks-groups-api-openapi.yml",
-    "memberclicks-profile-search-api-openapi.yml",
-    "memberclicks-profiles-api-openapi.yml",
-    "memberclicks-reference-data-api-openapi.yml"
+    "_original/memberclicks-openapi.yml"
   ],
   "outputs": [
     "memberclicks-attributes-api-openapi.yml",
@@ -23,6 +16,19 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "memberclicks-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "memberclicks-attributes-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "memberclicks-authorization-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "memberclicks-continuing-education-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "memberclicks-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "memberclicks-groups-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "memberclicks-profile-search-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "memberclicks-profiles-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "memberclicks-reference-data-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
