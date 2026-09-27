@@ -144,20 +144,14 @@ components:
           type: string
         message:
           type: string
-  responses:
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    Unauthorized:
-      description: Missing or invalid access token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
+    profileId:
+      name: profileId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The ID of the profile.
     pageSize:
       name: pageSize
       in: query
@@ -175,13 +169,19 @@ components:
         type: integer
         default: 1
       description: The 1-based page number to return.
-    profileId:
-      name: profileId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The ID of the profile.
+  responses:
+    Unauthorized:
+      description: Missing or invalid access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2
