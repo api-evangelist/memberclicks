@@ -48,6 +48,13 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
     ProfileList:
       type: object
       properties:
@@ -81,20 +88,6 @@ components:
           type: string
           description: Reference URL to the profile's group memberships.
       additionalProperties: true
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
-  responses:
-    Unauthorized:
-      description: Missing or invalid access token.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
     pageSize:
       name: pageSize
@@ -113,6 +106,13 @@ components:
         type: integer
         default: 1
       description: The 1-based page number to return.
+  responses:
+    Unauthorized:
+      description: Missing or invalid access token.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     oauth2:
       type: oauth2

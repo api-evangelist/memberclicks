@@ -104,6 +104,13 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        error:
+          type: string
+        message:
+          type: string
     ProfileList:
       type: object
       properties:
@@ -137,21 +144,7 @@ components:
           type: string
           description: Reference URL to the profile's group memberships.
       additionalProperties: true
-    Error:
-      type: object
-      properties:
-        error:
-          type: string
-        message:
-          type: string
   parameters:
-    profileId:
-      name: profileId
-      in: path
-      required: true
-      schema:
-        type: string
-      description: The ID of the profile.
     pageSize:
       name: pageSize
       in: query
@@ -161,6 +154,13 @@ components:
         default: 10
         maximum: 100
       description: The number of records per page (max 100).
+    profileId:
+      name: profileId
+      in: path
+      required: true
+      schema:
+        type: string
+      description: The ID of the profile.
     pageNumber:
       name: pageNumber
       in: query
