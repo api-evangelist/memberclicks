@@ -321,6 +321,9 @@ apis:
     url: >-
       https://help.memberclicks.com/hc/en-us/articles/15442888723341-API-Resources-Continuing-Education
 common:
+- type: CapabilityMap
+  url: capabilities/memberclicks-capability-edges.yml
+  name: MemberClicks Business Capability Map
 - type: AgenticAccess
   url: agentic-access/memberclicks-agentic-access.yml
 - type: DomainSecurity
