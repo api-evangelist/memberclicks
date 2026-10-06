@@ -57,7 +57,7 @@ tags_raw:
 - CRM
 - Personify
 created: '2026-07-05'
-modified: '2026-07-05'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: memberclicks:memberclicks-attributes-api
@@ -321,6 +321,10 @@ apis:
     url: >-
       https://help.memberclicks.com/hc/en-us/articles/15442888723341-API-Resources-Continuing-Education
 common:
+- url: https://memberclicks.com/blog/
+  type: Blog
+- url: https://memberclicks.com/feed/
+  type: BlogRSS
 - type: CapabilityMap
   url: capabilities/memberclicks-capability-edges.yml
   name: MemberClicks Business Capability Map
