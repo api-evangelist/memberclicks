@@ -108,3 +108,37 @@ plans:
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
+x-canonical:
+  generated: '2026-10-08'
+  vocabulary: all/0-working/economics/plans-canonical.yml
+  models:
+  - one-time
+  - subscription
+  units:
+  - negotiated
+  - object
+  plans:
+  - name: MC Professional
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - negotiated
+    periods:
+    - year
+  - name: MC Trade
+    access: other
+    model: subscription
+    model_how: stated
+    units:
+    - negotiated
+    periods:
+    - year
+  - name: Implementation and Onboarding
+    access: other
+    model: one-time
+    model_how: stated
+    units:
+    - object
+    periods:
+    - one-time
