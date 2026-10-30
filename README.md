@@ -1,4 +1,4 @@
-# MemberClicks (memberclicks)
+# MemberClicks
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -64,118 +64,138 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-MemberClicks is association and membership management software owned by **Personify** and marketed as "MemberClicks by Personify". Its flagship **MC Professional** platform (formerly branded **Oasis**) is an all-in-one association management system (AMS) for professional associations, chambers of commerce, and trade groups - covering member profiles and databases, dues and invoicing, event registration, email and communications, community groups, and websites.
+MemberClicks is association and membership management software owned by Personify (marketed as "MemberClicks by Personify"). Its flagship MC Professional platform (formerly branded "Oasis") is an all-in-one AMS for professional associations, chambers, and trade groups - covering member profiles and databases, dues and invoicing, event registration, email and communications, community groups, and websites. MemberClicks exposes a documented public/partner developer API - the MC Professional API, a JSON REST interface protected by the OAuth 2.0 authorization framework and hosted per organization at https://{orgId}.memberclicks.net. The API is intended for developers with technical expertise; MemberClicks support does not assist with custom integrations. Access to profile, event, and related data is gated behind per-organization OAuth client credentials rather than open self-serve signup.
 
-MemberClicks exposes a **documented public/partner developer API**: the **MC Professional API**, a JSON REST interface protected by the **OAuth 2.0** authorization framework. It is hosted per organization at `https://{orgId}.memberclicks.net`, and the developer help center explicitly notes the API is "intended for use by developers with technical expertise" and that MemberClicks support "is unable to assist with custom integrations."
+**Areas:** Membership Management · Association Management · AMS · Non-Profit · Event · CRM · Personify
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/memberclicks/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/memberclicks/refs/heads/main/apis.yml)
+## MemberClicks on APIs.io
 
-## Access Model
+Everything profiled for MemberClicks is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/memberclicks/](https://apis.io/providers/memberclicks/)** — or go straight to one of the APIs or properties below.
 
-- **Real, documented, but gated.** This is not an open self-serve API. Access requires per-organization OAuth 2.0 client credentials (a client ID and secret) provisioned inside an MC Professional account under API Management. There is no public sandbox or open key issuance.
-- **Per-tenant host.** Every organization has its own host, `https://{orgId}.memberclicks.net`, where `{orgId}` is the organization's MC Professional ID. There is no single global API hostname.
-- **OAuth 2.0.** Clients obtain an access token by POSTing to `/oauth/v1/token` with the client ID and secret Base64-encoded in an HTTP Basic `Authorization` header. The requested scope is `read`, `write`, or `read write`. Every resource request then sends `Authorization: Bearer <token>` and `Accept: application/json`.
-- **Developer documentation gate.** The detailed API reference lives in the MemberClicks help center (`help.memberclicks.com`), which is protected by Cloudflare/bot challenges and is not machine-fetchable without a browser session. The endpoints in this catalog were captured from the public help-center overview and search excerpts.
+### APIs (8)
 
-## Documented Resources
+- [MemberClicks Attributes API](https://apis.io/apis/memberclicks/memberclicks-attributes-api/) — Profile schema - built-in and custom fields.
+- [MemberClicks Authorization API](https://apis.io/apis/memberclicks/memberclicks-authorization-api/) — OAuth 2.0 token issuance.
+- [MemberClicks Continuing Education API](https://apis.io/apis/memberclicks/memberclicks-continuing-education-api/) — Continuing education credits.
+- [MemberClicks Events API](https://apis.io/apis/memberclicks/memberclicks-events-api/) — Events and registration (modeled paths).
+- [MemberClicks Groups API](https://apis.io/apis/memberclicks/memberclicks-groups-api/) — Group membership (modeled paths).
+- [MemberClicks Profile Search API](https://apis.io/apis/memberclicks/memberclicks-profile-search-api/) — Search over the membership database.
+- [MemberClicks Profiles API](https://apis.io/apis/memberclicks/memberclicks-profiles-api/) — Member / contact profile records.
+- [MemberClicks Reference Data API](https://apis.io/apis/memberclicks/memberclicks-reference-data-api/) — Member types and statuses.
 
-The MC Professional API is a JSON REST interface. Confirmed resources and endpoints include:
+### Published properties
 
-- **Profiles** - `GET /api/v1/profile` (list, paged), `GET /api/v1/profile/{profileId}` (retrieve), `POST /api/v1/profile` (create), and profile update.
-- **Profile Search** - `POST /api/v1/profile/search` (create a search over the membership database).
-- **Attributes** - list attributes and `GET /api/v1/attribute/{attributeId}/selection` (selection-set options for a custom attribute).
-- **Member Types** - `GET /api/v1/member-type`.
-- **Member Statuses** - `GET /api/v1/member-status`.
-- **Continuing Education** - `GET /api/v1/continuing-education/credit` (filter by `profileId`, `pageNumber`, `pageSize`; max page size 100) and `GET /api/v1/continuing-education/credit/{creditId}`.
-- **Countries** - reference lookup of countries.
-- **Groups** - group membership, surfaced via a `groupsUrl` reference on a profile's group built-in attribute.
-- **Events** - an Events API resource is documented in the developer help center.
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-Group and Event endpoint paths are **modeled** in this catalog: the resources are documented, but the exact request paths are behind the gated developer documentation and were not reproduced verbatim. See `review.yml` for the honest breakdown of what is confirmed versus modeled.
+#### Agentic access (1)
 
-There is also an older **Oasis** generation of the API still referenced in the help center; the current documentation is branded MC Professional.
+Which operations an agent can call, which act, and which need a human in the loop.
 
-## Tags
+- [Memberclicks Agentic Access](https://apis.io/agentic-access/memberclicks/memberclicks-agentic-access/)
 
-- Membership Management
-- Association Management
-- AMS
-- Nonprofit
-- Events
-- CRM
-- Personify
+#### Collections (9)
 
-## Timestamps
+Postman and Open Collection request collections.
 
-- **Created:** 2026-07-05
-- **Modified:** 2026-07-05
+- [MemberClicks MC Professional API](https://apis.io/collections/memberclicks/open-memberclicks/)
+- [MemberClicks MC Professional Attributes API](https://apis.io/collections/memberclicks/open-memberclicks-attributes-api/)
+- [MemberClicks MC Professional Attributes Authorization API](https://apis.io/collections/memberclicks/open-memberclicks-authorization-api/)
+- [MemberClicks MC Professional Attributes Continuing Education API](https://apis.io/collections/memberclicks/open-memberclicks-continuing-education-api/)
+- [MemberClicks MC Professional Attributes Events API](https://apis.io/collections/memberclicks/open-memberclicks-events-api/)
+- [MemberClicks MC Professional Attributes Groups API](https://apis.io/collections/memberclicks/open-memberclicks-groups-api/)
+- [MemberClicks MC Professional Attributes Profile Search API](https://apis.io/collections/memberclicks/open-memberclicks-profile-search-api/)
+- [MemberClicks MC Professional Attributes Profiles API](https://apis.io/collections/memberclicks/open-memberclicks-profiles-api/)
+- [MemberClicks MC Professional Attributes Reference Data API](https://apis.io/collections/memberclicks/open-memberclicks-reference-data-api/)
 
-## APIs
+#### Security (2)
 
-### MemberClicks Profiles API
+Authentication, trust centre, and vulnerability disclosure.
 
-Retrieve, create, and update member/contact profiles - the core people records in MC Professional.
+- [Memberclicks Authentication](https://apis.io/security/memberclicks/memberclicks-authentication/)
+- [Memberclicks Domain Security](https://apis.io/security/memberclicks/memberclicks-domain-security/)
 
-- **Human URL:** [API Resources: Retrieve Profiles](https://help.memberclicks.com/hc/en-us/articles/15442882233485-API-Resources-Retrieve-Profiles)
-- **Base URL:** `https://{orgId}.memberclicks.net/api/v1`
+#### OAuth scopes (1)
 
-### MemberClicks Profile Search API
+The permissions the API asks for.
 
-Create a profile search by POSTing criteria to `/api/v1/profile/search`, then page through matching profiles.
+- [Memberclicks Scopes](https://apis.io/scopes/memberclicks/memberclicks-scopes/)
 
-- **Human URL:** [API Resources: Profile Search](https://help.memberclicks.com/hc/en-us/articles/15442958956813-API-Resources-Profile-Search)
-- **Base URL:** `https://{orgId}.memberclicks.net/api/v1`
+#### Plans and pricing (1)
 
-### MemberClicks Attributes API
+Published plans, tiers and prices.
 
-Describe the profile schema - list attributes and retrieve selection-set options via `/api/v1/attribute/{attributeId}/selection`.
+- [Memberclicks Plans Pricing](https://apis.io/plans/memberclicks/memberclicks-plans-pricing/)
 
-- **Human URL:** [API Resources: Attributes](https://help.memberclicks.com/hc/en-us/articles/15442877631373-API-Resources-Attributes)
-- **Base URL:** `https://{orgId}.memberclicks.net/api/v1`
+#### Rate limits (1)
 
-### MemberClicks Member Types and Statuses API
+Published request limits.
 
-Reference-data lookups: `GET /api/v1/member-type` and `GET /api/v1/member-status`.
+- [Memberclicks Rate Limits](https://apis.io/rate-limits/memberclicks/memberclicks-rate-limits/)
 
-- **Human URL:** [API Resources: Member Types](https://help.memberclicks.com/hc/en-us/articles/15442888509581-API-Resources-Member-Types)
-- **Base URL:** `https://{orgId}.memberclicks.net/api/v1`
+#### FinOps (1)
 
-### MemberClicks Groups API
+What the API costs to run, by operation.
 
-Read the groups a profile belongs to (surfaced via `groupsUrl`). Exact paths modeled.
+- [Memberclicks Finops](https://apis.io/finops/memberclicks/memberclicks-finops/)
 
-- **Human URL:** [API section](https://help.memberclicks.com/hc/en-us/sections/14749781143437-API)
-- **Base URL:** `https://{orgId}.memberclicks.net/api/v1`
+## Where to find this API
 
-### MemberClicks Events API
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
-Read event and registration data. Documented resource; exact paths modeled.
-
-- **Human URL:** [API Resources: Events](https://help.memberclicks.com/hc/en-us/articles/15442887570573-API-Resources-Events)
-- **Base URL:** `https://{orgId}.memberclicks.net/api/v1`
-
-### MemberClicks Continuing Education API
-
-List and retrieve continuing education credits earned by members.
-
-- **Human URL:** [API Resources: Continuing Education](https://help.memberclicks.com/hc/en-us/articles/15442888723341-API-Resources-Continuing-Education)
-- **Base URL:** `https://{orgId}.memberclicks.net/api/v1`
-
-## Common Properties
-
-- [LinkedIn](https://www.linkedin.com/company/memberclicks)
 - [Website](https://memberclicks.com)
 - [Documentation](https://help.memberclicks.com/hc/en-us/sections/14749781143437-API)
-- [Sign Up / API Management](https://help.memberclicks.com/hc/en-us/articles/18581108667021-API-Management)
-- [Plans](plans/memberclicks-plans-pricing.yml)
-- [Rate Limits](rate-limits/memberclicks-rate-limits.yml)
-- [Fin Ops](finops/memberclicks-finops.yml)
+- [Sign up](https://help.memberclicks.com/hc/en-us/articles/18581108667021-API-Management)
+- [Blog](https://memberclicks.com/blog/)
 
-## Pricing
+## API Evangelist rating
 
-MemberClicks does not publish per-call API pricing; the API is included with an MC Professional (or MC Trade) subscription. Platform subscriptions are quoted by the size and needs of the organization and are billed annually, with reported entry pricing around **$3,500/year** and implementation from roughly $500 to $5,000+. Get a quote from [MemberClicks pricing](https://memberclicks.com/membership-software-pricing/).
+**Kin Score 31.0** — thin · rubric 0.24.0 · scored 2026-10-17
 
-## Maintainers
+| Facet | Score |
+|---|---|
+| Discoverability | 66.1 |
+| Contract quality | 50.5 |
+| Contract governance | 0.0 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 31.0 |
+| Access clarity | 21.1 |
 
-**FN:** Kin Lane
-**Email:** kin@apievangelist.com
+**Agent readiness 23.3** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | negotiable (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 21.6** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/memberclicks/](https://apis.io/providers/memberclicks/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for MemberClicks: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/memberclicks/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
